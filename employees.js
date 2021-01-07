@@ -45,15 +45,40 @@ function start(){
         else if (answer.choices==="Add a department"){
             addDepartment();
         }
+        else if (answer.choices==="View all departments"){
+            viewAllDepartments();
+        }
         else if(answer.choices==="View all positions"){
             viewAllPositions();
         }
         else if(answer.choices==="View all employees"){
             viewAllEmployees();
+        }
+        else if(answer.choices==="Update employee roles"){
+            updateEmployeeRoles();
         } 
     })
 }
 start();
+function addPosition(){
+
+}
+
+function addEmployee(){
+
+}
+
+function addDepartment(){
+
+}
+
+function viewAllDepartments(){
+
+}
+
+function viewAllPositions(){
+
+}
 
 function viewAllEmployees(){
     console.log("test");
@@ -61,3 +86,9 @@ function viewAllEmployees(){
         console.table(res);
     })
 }
+
+function updateEmployeeRoles(){
+    
+}
+
+
