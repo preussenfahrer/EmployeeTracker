@@ -7,6 +7,7 @@ const figlet = require("figlet");
 const table = require("console.table")
 var mysql = require("mysql");
 
+
 // establish connection to server
 var connection = mysql.createConnection({
     host: "localhost",
@@ -175,6 +176,7 @@ function viewAllEmployees() {
     console.log("Selecting all employees...\n");
     connection.query("SELECT * FROM employee", function (err, res) {
         console.table(res);
+        start();
     })
 }
 
@@ -209,7 +211,7 @@ function updateEmployeeRoles() {
                 }],
             function (err) {
                 if (err) throw err;
-                console.log("Department was added successfully!");
+                console.log("Employee role updated successfully!");
                 start();
             })
     })
