@@ -1,6 +1,9 @@
 // install dependencies
 "use strict";
 const inquirer = require("inquirer");
+const chalk = require("chalk");
+const clear = require("clear");
+const figlet = require("figlet");
 const table = require("console.table")
 var mysql = require("mysql");
 
@@ -11,6 +14,7 @@ var connection = mysql.createConnection({
     password: "bruceyboy143",
     database: "employees_db"
 });
+console.log(chalk.red(figlet.textSync("Employee Tracker", {horizontalLayout: "fitted"})));
 
 connection.connect(function (err) {
     if (err) throw err;
@@ -24,9 +28,7 @@ function start() {
         type: "list",
         name: "choices",
         message: "Hello and welcome to Employeetracker! What would you like to do?",
-        choices: [
-            "Add a position", "Add an employee", "Add a department", "View all positions", "View all departments", "View all employees", "Update employee roles", "Exit"
-        ]
+        choices: ["Add a position", "Add an employee", "Add a department", "View all positions", "View all departments", "View all employees", "Update employee roles", "Exit"]
     }).then(function (answer) {
         if (answer.choices === "Add a position") {
             addPosition();
@@ -177,41 +179,40 @@ function viewAllEmployees() {
 }
 
 // update roles
-// function updateEmployeeRoles() {
-//     console.log("Updating employee roles...\n");
-//     inquirer.prompt([{
-//         name: "newTitle",
-//         type: "input",
-//         message: "What is the new job title you would like to add?"
-//     },
-//     {
-//         name: "newSalary",
-//         type: "input",
-//         message: "What is the salary for this new job?"
-//     },
-//     {
-//         name: "newDeptId",
-//         type: "input",
-//         message: "What is the new department ID for this role?"
-//     }]).then(function (answer) {
-//         connection.query("UPDATE role SET ? WHERE ?",
-//             [
-//                 {
-//                     new_title: answer.newTitle,
-//                 },
-//                 {
-//                     new_salary: answer.newSalary,
-//                 },
-//                 {
-//                     new_id: answer.newDeptId,
-//                 },
-//                 function (err) {
-//                     if (err) throw err;
-//                     console.log("Department was added successfully!");
-//                     start();
-//             ]
-//     })
+function updateEmployeeRoles() {
+    console.log("Updating employee roles...\n");
+    inquirer.prompt([{
+        name: "newTitle",
+        type: "input",
+        message: "What job would you like to update?"
+    },
+    {
+        name: "newSalary",
+        type: "input",
+        message: "What will be the new salary for this job?"
+    },
+    {
+        name: "newDeptId",
+        type: "input",
+        message: "What is the new department ID for this role?"
+    }]).then(function (answer) {
+        connection.query("UPDATE role SET ? WHERE ?",
+            [
+                {
+                    title: answer.newTitle,
+                },
+                {
+                    salary: answer.newSalary,
+                },
+                {
+                    department_id: answer.newDeptId,
+                }],
+            function (err) {
+                if (err) throw err;
+                console.log("Department was added successfully!");
+                start();
+            })
+    })
 
-// }
-
+}
 
