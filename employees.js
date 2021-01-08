@@ -25,14 +25,7 @@ function start() {
         name: "choices",
         message: "Hello and welcome to Employeetracker! What would you like to do?",
         choices: [
-            "Add a position",
-            "Add an employee",
-            "Add a department",
-            "View all positions",
-            "View all departments",
-            "View all employees",
-            "Update employee roles",
-            "Exit"
+            "Add a position", "Add an employee", "Add a department", "View all positions", "View all departments", "View all employees", "Update employee roles", "Exit"
         ]
     }).then(function (answer) {
         if (answer.choices === "Add a position") {
@@ -60,7 +53,7 @@ function start() {
         }
     })
 }
-
+// add positions, employees, and departments
 function addPosition() {
     inquirer.prompt([
         {
@@ -78,7 +71,7 @@ function addPosition() {
             type: "input",
             message: "What is the department id of this position?"
         }
-    ]).then(function(answer) {
+    ]).then(function (answer) {
         // This will add a new role to the db
         connection.query("INSERT INTO role SET ?",
             {
@@ -93,71 +86,132 @@ function addPosition() {
             }
         );
     });
-
 }
 
-// function addEmployee() {
-//     inquirer.prompt([
-//         {
-//             name: "firstName",
-//             type: "input",
-//             prompt: "What is the first name of the employee being added?"
-//         },
-//         {
-//             name: "lastName",
-//             type: "input",
-//             prompt: "What is the last name of the employee being added?"
-//         },
-//         {
-//             name: "roleId",
-//             type: "number",
-//             prompt: "What is the role id of the employee being added?"
-//         },
-//         {
-//             name: "managerId",
-//             type: "number",
-//             prompt: "What is the manager id of the employee being added?"
-//         }
-//     ]).then(function(answer) {
-//         // This will add a new position to the db
-//         connection.query("INSERT INTO employee SET ?",
-//             {
-//                 first_name: answer.firstName,
-//                 last_name: answer.lastName,
-//                 role_id: answer.roleId,
-//                 manager_id: answer.managerId
-//             },
-//             function (err) {
-//                 if (err) throw err;
-//                 console.log("Your employee was added successfully!");
-//                 start();
-//             }
-//         );
-//     });
-
-// }
+function addEmployee() {
+    inquirer.prompt([
+        {
+            name: "firstName",
+            type: "input",
+            message: "What is the first name of the employee being added?"
+        },
+        {
+            name: "lastName",
+            type: "input",
+            message: "What is the last name of the employee being added?"
+        },
+        {
+            name: "roleId",
+            type: "number",
+            message: "What is the role id of the employee being added?"
+        },
+        {
+            name: "managerId",
+            type: "number",
+            message: "What is the manager id of the employee being added?"
+        }
+    ]).then(function (answer) {
+        // This will add a new position to the db
+        connection.query("INSERT INTO employee SET ?",
+            {
+                first_name: answer.firstName,
+                last_name: answer.lastName,
+                role_id: answer.roleId,
+                manager_id: answer.managerId
+            },
+            function (err) {
+                if (err) throw err;
+                console.log("Your employee was added successfully!");
+                start();
+            }
+        );
+    });
+}
 
 function addDepartment() {
-
+    inquirer.prompt([
+        {
+            name: "deptName",
+            type: "input",
+            message: "What is the first name of the department you would like to add?"
+        },
+    ]).then(function (answer) {
+        // This will add a new department to the db
+        connection.query("INSERT INTO department SET ?",
+            {
+                name: answer.deptName,
+            },
+            function (err) {
+                if (err) throw err;
+                console.log("Department was added successfully!");
+                start();
+            }
+        );
+    });
 }
-
+// View all Departments and Positions
 function viewAllDepartments() {
-
+    console.log("Selecting all departments...\n");
+    connection.query("SELECT * FROM department", function (err, res) {
+        if (err) throw err;
+        console.table(res);
+        start();
+    });
 }
 
 function viewAllPositions() {
+    console.log("Selecting all roles...\n");
+    connection.query("SELECT * FROM role", function (err, res) {
+        if (err) throw err;
+        console.table(res);
+        start();
+    });
 
 }
 
 function viewAllEmployees() {
-    console.log("test");
+    console.log("Selecting all employees...\n");
     connection.query("SELECT * FROM employee", function (err, res) {
         console.table(res);
     })
 }
 
-function updateEmployeeRoles() {
+// update roles
+// function updateEmployeeRoles() {
+//     console.log("Updating employee roles...\n");
+//     inquirer.prompt([{
+//         name: "newTitle",
+//         type: "input",
+//         message: "What is the new job title you would like to add?"
+//     },
+//     {
+//         name: "newSalary",
+//         type: "input",
+//         message: "What is the salary for this new job?"
+//     },
+//     {
+//         name: "newDeptId",
+//         type: "input",
+//         message: "What is the new department ID for this role?"
+//     }]).then(function (answer) {
+//         connection.query("UPDATE role SET ? WHERE ?",
+//             [
+//                 {
+//                     new_title: answer.newTitle,
+//                 },
+//                 {
+//                     new_salary: answer.newSalary,
+//                 },
+//                 {
+//                     new_id: answer.newDeptId,
+//                 },
+//                 function (err) {
+//                     if (err) throw err;
+//                     console.log("Department was added successfully!");
+//                     start();
+//             ]
+//     })
 
-}
+// }
 
 
