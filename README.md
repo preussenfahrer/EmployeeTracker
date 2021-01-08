@@ -21,7 +21,7 @@
     
  ## Description:
     
-EmployeeTracker is an applicatoin where a business owner can input entire departments, job roles, and employee information in a database and update this information regularly from the command line. It is run in JavaScript and nodeJS, in addition to being connected to a mySQL database. Whenever there is a change in employee roles, such as a promotion or an increase in salary, this can also be added in EmployeeTracker. A prompt with various options is offered to the user, and they can repeatedly navigate to whatever area that they desire to go to, input their information, and it will be added to a mySQL database. 
+EmployeeTracker is an application where a business owner can input entire departments, job roles, and employee information in a database and update this information regularly from the command line. It is run in JavaScript and nodeJS, in addition to being connected to a mySQL database. Whenever there is a change in employee roles, such as a promotion or an increase in salary, this can also be added in EmployeeTracker. A prompt with various options is offered to the user, and they can repeatedly navigate to whatever area that they desire to go to, input their information, and it will be added to a mySQL database. 
 
 If you've got the proper dependencies installed, you should be greeted with the following image in your terminal and prompted with a series of options and the display of the application:
 
